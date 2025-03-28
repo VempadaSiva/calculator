@@ -1,48 +1,43 @@
 import sys
 
-def calculator(start, input1=None, input2=None, operation=None):
+def calculator(start, operation=None, input1=None, input2=None):
     while start:
         if not operation:
-            operation = input('Enter which type of operation you need: add/sub/mul/div/stop: ')
+            print("Operation is required.")
+            break
 
         if operation == 'stop':
             start = False
             continue
 
-        if input1 is None:
-            input1 = int(input('Enter a number: '))  # First number
+        if input1 is None or input2 is None:
+            print("Both input1 and input2 are required.")
+            break
 
-        if input2 is None:
-            input2 = int(input('Enter another number: '))  # Second number
-
+        # Perform the requested operation
         if operation == 'add':
-            print('Addition of given numbers:', input1 + input2)
+            print(f'Addition of {input1} and {input2}:', input1 + input2)
         elif operation == 'sub':
-            print('Subtraction of given numbers:', input1 - input2)
+            print(f'Subtraction of {input1} and {input2}:', input1 - input2)
         elif operation == 'mul':
-            print('Multiplication of given numbers:', input1 * input2)
+            print(f'Multiplication of {input1} and {input2}:', input1 * input2)
         elif operation == 'div':
-            print('Division of given numbers:', input1 / input2)
+            if input2 != 0:
+                print(f'Division of {input1} and {input2}:', input1 / input2)
+            else:
+                print("Cannot divide by zero!")
         else:
-            print('Invalid operation')
-            return
+            print("Invalid operation!")
+            break
 
-        # Ask for operation again or stop
-        operation = input('Enter which type of operation you need: add/sub/mul/div/stop: ')
+        start = False  # End the loop after one operation for this example.
 
 if __name__ == '__main__':
-    # Check if there are command-line arguments
-    if len(sys.argv) > 1:
-        # Extract values from command-line arguments
-        try:
-            operation = sys.argv[1]  # First argument
-            input1 = int(sys.argv[2])  # Second argument
-            input2 = int(sys.argv[3])  # Third argument
-            calculator(start=True, input1=input1, input2=input2, operation=operation)
-        except IndexError:
-            print("Please provide operation, input1, and input2 as arguments.")
-        except ValueError:
-            print("Please ensure input1 and input2 are integers.")
+    # Ensure the user has provided enough arguments
+    if len(sys.argv) < 4:
+        print("Please provide operation, input1, and input2 as command-line arguments.")
     else:
-        # Default case: Run interactively
-        calculator(start=True)
+        operation = sys.argv[1]
+        input1 = int(sys.argv[2])
+        input2 = int(sys.argv[3])
+        calculator(start=True, operation=operation, input1=input1, input2=input2)
