@@ -2,12 +2,12 @@ import os
 def calculator(start):
     
     while start:
-        operation = os.get_env('enter which type of operation you need: add/sub/mul/div/stop: ')
+        operation = os.getenv('enter which type of operation you need: add/sub/mul/div/stop: ')
         if operation == 'stop':
             start = False
             continue
-        input1 = int(os.get_env('enter a number:'))
-        input2 = int(os.get_env('enter other number: '))
+        input1 = int(os.getenv('enter a number:'))
+        input2 = int(os.getenv('enter other number: '))
         if operation == 'add':
             print('Add of given numbers: ', input1+input2)
         elif operation == 'sub':
